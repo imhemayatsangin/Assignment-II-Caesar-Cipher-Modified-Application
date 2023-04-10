@@ -5,14 +5,19 @@ using namespace std;
 
 // here in this function we are shifting the character position in the alphabet.
 char shiftChar(char character, int number_of_shift, const string& alphabet) {
-    int position = alphabet.find(character);
+    int position = alphabet.find(toupper(character));
     if (position == string::npos) {
         return character;
     } else {
         int shift_position = (position + number_of_shift + alphabet.size()) % alphabet.size();
-        return alphabet[shift_position];
+        char shifted_char = alphabet[shift_position];
+        if (islower(character)) {
+            shifted_char = tolower(shifted_char);
+        }
+        return shifted_char;
     }
 }
+
 
 // here it encrypts and decrypts using by shifts
 string EncryptDecrypt(const string& msg, int number_of_shift, const string& alphabet, bool encrypt) {
